@@ -54,6 +54,7 @@ function App() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(e)
     const data = await axios.post(`${baseUrl}/event`, {description}).catch((err) => {
       console.log(err)
   })

@@ -15,7 +15,6 @@ class Event(db.Model):
     description = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
-    audio = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f"Event: {self.description}"
@@ -27,7 +26,6 @@ class Event(db.Model):
 def format_event(event):
     return {
         "description": event.description,
-        "audio": event.sound,
         "id": event.id,
         "created_at": event.created_at
     }
@@ -74,10 +72,8 @@ def get_event(id):
 @app.route("/event/<id>", methods=["DELETE"])
 def delete_event(id):
     event = Event.query.filter_by(id=id).one()
-    audioName = event.description
     db.session.delete(event)
     db.session.commit()
-    return f"{audioName} deleted!"
 
 
 if __name__ == "__main__":
