@@ -15,7 +15,7 @@ function App() {
   const [description, setDescription] = useState("")
   const [eventsList, setEventsList] = useState([]);
   const[buttonName,setButtonName] = useState('Play')
-  const [audio,setAudio] = useState();
+  const [audio,setAudio] = useState("");
 
   var a;
 
@@ -24,7 +24,6 @@ function App() {
   }
 
   const handlePlay = async (id) => {
-      a.pause()
       a.play()
    }
 
@@ -54,12 +53,13 @@ function App() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e)
-    const data = await axios.post(`${baseUrl}/event`, {description}).catch((err) => {
+    const data = await axios.post(`${baseUrl}/event`, {description, audio}).catch((err) => {
       console.log(err)
   })
+    console.log("data: ", data)
     setEventsList([...eventsList, data.data]);
     setDescription('');
+    
   }
 
   useEffect(() => {
@@ -78,6 +78,7 @@ function App() {
               type='file'
               name="description"
               id="description"
+              audio="audio"
               value={description}
             />
           </div>

@@ -15,19 +15,22 @@ class Event(db.Model):
     description = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
+    audio = db.Column(db.String(), nullable=False)
 
     def __repr__(self):
-        return f"Event: {self.description}"
+        return f"Event: {self.description, self.audio}"
 
-    def __init__(self, description):
+    def __init__(self, description, audio):
         self.description = description
+        self.audio = audio
 
 
 def format_event(event):
     return {
         "description": event.description,
         "id": event.id,
-        "created_at": event.created_at
+        "created_at": event.created_at,
+        "audio": event.audio
     }
 
 
@@ -41,8 +44,11 @@ def hello():
 @app.route("/event", methods=["POST"])
 def create_event():
     description = request.json["description"]
-    event = Event(description)
+    audio = [request.json["audio"]]
+    event = Event(description, audio)
+    print(event)
     db.session.add(event)
+    print("event added to session")
     db.session.commit()
     return format_event(event)
 
