@@ -4,6 +4,21 @@
   text-align: center;
 }
 
+.SubmitField{
+  margin: 10px;
+}
+
+.Audios{
+  padding: 10px;
+  margin-top: 5%;
+}
+
+.Subheader{
+  text-align: left; 
+  padding-top: 2%; 
+  padding-bottom: 1%;
+  font-weight: bold;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

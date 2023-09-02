@@ -1,4 +1,4 @@
-3 tabs:
+3 terminal tabs:
 
 1 run backend:
 pip3 install pipenv

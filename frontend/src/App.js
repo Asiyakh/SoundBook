@@ -2,7 +2,7 @@ import axios from "axios";
 import {format} from "date-fns"
 import {useEffect, useState} from 'react';
 import * as React from 'react';
-import {Button, Grid, TextField, List, ListItem, Divider, IconButton} from '@mui/material'
+import {Typography, Button, Grid, TextField, List, ListItem, Divider, IconButton} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
@@ -20,7 +20,10 @@ function App() {
 
 
   const handlePlay = async (id) => {
-
+      if (a){
+        a.pause();
+        a="";
+      }
       const song = eventsList.filter(event => (event.id === id))[0].audio
       a=new Audio(song[0]) 
       a.play()
@@ -68,9 +71,10 @@ function App() {
 
   return (
     <div className="App">
+      <Typography variant="h3" paddingBottom={"2%"}  color= "primary">SoundBook</Typography>
         <form onSubmit={handleSubmit}>
-          <div><label htmlFor="description">Upload Audio File Below</label></div>
-          <div>
+          <div><label htmlFor="description" sx={{fontWeight: 500  }}>Upload Audio File Below!</label></div>
+          <div className="SubmitField">
             <TextField
               fullWidth
               onChange={addFile}
@@ -79,22 +83,22 @@ function App() {
               id="description"
               audio="audio"
               value={description}
-              sx={{margin:"10px"}}
             />
           </div>
           <Button variant="contained" type="submit" sx={{margin: '10px'}}>Upload</Button>
         </form>
-        <Grid item xs={12} md={6}>
-            <List sx={{borderColor: 'text.primary', m: 1,border: 1, borderRadius: '10px', padding: '10px', marginTop: "10%"}}>
+        <Grid item xs={12} md={6} className="Audios">
+        <Typography className="Subheader"><>Uploaded Audios</></Typography>
+            <List sx={{border: 1, borderRadius: '10px'}}>
                 {eventsList.map(event => {
                   return (
                     <>
                     <ListItem key={event.id} secondaryAction={
                       <>
-                      <IconButton onClick={() => handlePlay(event.id)} edge="end" aria-label="delete">
+                      <IconButton onClick={() => handlePlay(event.id)} edge="end" aria-label="delete" color="primary">
                         <PlayCircleOutlineIcon />
                       </IconButton>
-                      <IconButton onClick={() => handleDelete(event.id)} edge="end" aria-label="delete">
+                      <IconButton onClick={() => handleDelete(event.id)} edge="end" aria-label="delete" color="primary">
                         <DeleteIcon />
                       </IconButton>
                       </>
