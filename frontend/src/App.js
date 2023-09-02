@@ -2,7 +2,7 @@ import axios from "axios";
 import {format} from "date-fns"
 import {useEffect, useState} from 'react';
 import * as React from 'react';
-import {Typography, Button, Grid, TextField, List, ListItem, Divider, IconButton} from '@mui/material'
+import {Button, Grid, TextField, List, ListItem, Divider, IconButton} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
@@ -14,16 +14,15 @@ function App() {
 
   const [description, setDescription] = useState("")
   const [eventsList, setEventsList] = useState([]);
-  const[buttonName,setButtonName] = useState('Play')
   const [audio,setAudio] = useState("");
 
   var a;
 
-  if(audio){
-   a=new Audio(audio) 
-  }
 
   const handlePlay = async (id) => {
+
+      const song = eventsList.filter(event => (event.id === id))[0].audio
+      a=new Audio(song[0]) 
       a.play()
    }
 
@@ -70,7 +69,7 @@ function App() {
   return (
     <div className="App">
         <form onSubmit={handleSubmit}>
-          <div><label htmlFor="description">Description</label></div>
+          <div><label htmlFor="description">Upload Audio File Below</label></div>
           <div>
             <TextField
               fullWidth
@@ -80,18 +79,19 @@ function App() {
               id="description"
               audio="audio"
               value={description}
+              sx={{margin:"10px"}}
             />
           </div>
-          <Button variant="contained" type="submit" sx={{margin: '10px'}}>Submit</Button>
+          <Button variant="contained" type="submit" sx={{margin: '10px'}}>Upload</Button>
         </form>
         <Grid item xs={12} md={6}>
-            <List>
+            <List sx={{borderColor: 'text.primary', m: 1,border: 1, borderRadius: '10px', padding: '10px', marginTop: "10%"}}>
                 {eventsList.map(event => {
                   return (
                     <>
                     <ListItem key={event.id} secondaryAction={
                       <>
-                      <IconButton onClick={() => handlePlay()} edge="end" aria-label="delete">
+                      <IconButton onClick={() => handlePlay(event.id)} edge="end" aria-label="delete">
                         <PlayCircleOutlineIcon />
                       </IconButton>
                       <IconButton onClick={() => handleDelete(event.id)} edge="end" aria-label="delete">

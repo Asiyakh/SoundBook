@@ -43,7 +43,7 @@ def hello():
 
 @app.route("/event", methods=["POST"])
 def create_event():
-    description = request.json["description"]
+    description = request.json["description"][12:]
     audio = [request.json["audio"]]
     event = Event(description, audio)
     print(event)
