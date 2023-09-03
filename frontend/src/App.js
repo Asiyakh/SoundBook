@@ -15,6 +15,7 @@ function App() {
   const [description, setDescription] = useState("")
   const [eventsList, setEventsList] = useState([]);
   const [audio,setAudio] = useState("");
+  const [playing, setPlaying] = useState("");
 
   var a;
 
@@ -24,8 +25,8 @@ function App() {
         a.pause();
         a="";
       }
-      const song = eventsList.filter(event => (event.id === id))[0].audio
-      a=new Audio(song[0]) 
+      const song = eventsList.filter(event => (event.id === id))[0].audio[0]
+      a=new Audio(song) 
       a.play()
    }
 
@@ -52,8 +53,10 @@ function App() {
     setEventsList(updatedList)
     console.log(eventsList)
   }
-  
+
+
   const handleSubmit = async (e) => {
+    console.log(e)
     e.preventDefault();
     const data = await axios.post(`${baseUrl}/event`, {description, audio}).catch((err) => {
       console.log(err)

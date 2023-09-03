@@ -34,12 +34,7 @@ def format_event(event):
     }
 
 
-@app.route("/")
-def hello():
-    return "hey!"
-
 # add a new audio
-
 
 @app.route("/event", methods=["POST"])
 def create_event():
@@ -55,6 +50,7 @@ def create_event():
 # see all audios
 
 
+@app.route("/")
 @app.route("/event", methods=["GET"])
 def get_events():
     events = Event.query.order_by(Event.id.asc()).all()
