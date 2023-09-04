@@ -4,22 +4,34 @@ This is a repo for new users getting started with Docker.
 
 You can try it out using the following command.
 
-# Building via Docker
+## Techstack
 
-Build and run:
+- React
+- Flask
+- PostgreSQL
+- Docker
+
+## Instantiating database
+
+In backend/app.py: line 7 make sure to update with updated user info.
+
+## Building via Docker
+
+First make sure you have both Docker Desktop and docker-compose
+
+Build and run locally:
 
 ```
-sudo docker-compose up -d --build
 sudo docker-compose up
 ```
 
-Open `http://localhost:5000` in your browser.
+Open `http://localhost:3000` in your browser.
 
-# Building Manually
+## Building Manually
 
 open 3 terminal tabs:
 
-## First tab will run db:
+### First tab will run db:
 
 ```
 cd backend
@@ -28,16 +40,17 @@ from app import db
 db.create_all()
 ```
 
-## Second tab will run server:
+### Second tab will run server:
 
 ```
 pip3 install pipenv
 pipenv shell
 pipenv install flask flask-sqlalchemy psycopg2 python-dotenv flask-cors
+pipenv shell
 flask run
 ```
 
-## Third tab will run client:
+### Third tab will run client:
 
 ```
 cd frontend
